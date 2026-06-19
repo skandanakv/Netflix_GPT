@@ -1,10 +1,25 @@
 import React from 'react'
 import Header from './Header'
-import { useState } from 'react'
+import { useState, useRef} from 'react'
+import {checkValidData} from '../utils/Validation'
 
 const Login = () => {
-  
+  const emailRef = useRef(null);
+  const passwordRef = useRef(null);
+  const nameRef = useRef(null);
+
   const [isSignedIn, setIsSignedIn]=useState(true);
+  const [errorMessage, setErrorMessage] = useState(null);
+
+  const handleButtonClick = ()=> {
+    //validation of the form
+    console.log(emailRef.current.value);
+    console.log(passwordRef.current.value);
+
+    const message = checkValidData (nameRef.current.value, emailRef.current.value, passwordRef.current.value , isSignedIn);
+    console.log(message);
+    setErrorMessage(message);
+  }
 
   const toggleSignInForm = () => {
     setIsSignedIn(!isSignedIn);
@@ -21,12 +36,16 @@ const Login = () => {
     className="w-screen h-screen object-cover inset-0 bg-gradient-to-b from-black/70 via-black/40 to-black/80"
   />
 
-  <form>
+  <form onSubmit ={(e)=>{e.preventDefault(); handleButtonClick();}} >
     <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-black/70 p-8 rounded-lg">
-      <h2 className="text-3xl font-bold mb-6 text-white align-center ">{isSignedIn ? "Sign In" : "Sign Up"}</h2>
+      <h2 className="text-3xl font-bold mb-6 text-white align-center" onClick={handleButtonClick}>
+        {isSignedIn ? "Sign In" : "Sign Up"}
+        </h2>
+
       {!isSignedIn && (<input
         type="text"
         placeholder="Full Name"
+        ref={nameRef}
         className="w-full p-3 mb-4 rounded bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-red-600"
       />)
       }
@@ -35,11 +54,13 @@ const Login = () => {
       <input
         type="email"
         placeholder="Email"
+        ref={emailRef}
         className="w-full p-3 mb-4 rounded bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-red-600"
       />
       <input
         type="password"
         placeholder="Password"
+        ref={passwordRef}
         className="w-full p-3 mb-6 rounded bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-red-600"
       />
       <button
@@ -48,6 +69,7 @@ const Login = () => {
       >
         {isSignedIn ? "Sign In" : "Sign Up"}
       </button>
+      <p className='mt-4 text-red-600'>{errorMessage}</p>
       <p className="mt-4 text-white">
         {isSignedIn ? "Don't have an account?" : "Already have an account?"}
         <span className="text-red-600 cursor-pointer" onClick={toggleSignInForm}>

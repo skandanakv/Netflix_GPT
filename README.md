@@ -3,5 +3,8 @@
 - configured app using CRA
 - tailwind css
 - Header
+- Routing
 - Login form
 - Signup form
+- Validating both of these now..
+- useRef hook
