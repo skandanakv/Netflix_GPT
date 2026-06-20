@@ -8,3 +8,5 @@
 - Signup form
 - Validating both of these now..
 - useRef hook
+- Firebase setup
+- deploying app to prod
