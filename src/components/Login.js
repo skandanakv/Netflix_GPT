@@ -11,15 +11,37 @@ const Login = () => {
   const [isSignedIn, setIsSignedIn]=useState(true);
   const [errorMessage, setErrorMessage] = useState(null);
 
-  const handleButtonClick = ()=> {
-    //validation of the form
-    console.log(emailRef.current.value);
-    console.log(passwordRef.current.value);
+const handleButtonClick = () => {
+  const name = nameRef.current?.value || "";
+  const email = emailRef.current?.value || "";
+  const password = passwordRef.current?.value || "";
 
-    const message = checkValidData (nameRef.current.value, emailRef.current.value, passwordRef.current.value , isSignedIn);
-    console.log(message);
-    setErrorMessage(message);
-  }
+  console.log(name);
+  console.log(email);
+  console.log(password);
+
+console.log({
+  name,
+  email,
+  password,
+  isSignedIn
+});
+
+console.log("isSignedIn =", isSignedIn);
+console.log("nameRef =", nameRef.current);
+console.log("emailRef =", emailRef.current);
+console.log("passwordRef =", passwordRef.current);
+
+  const message = checkValidData(
+    name,
+    email,
+    password,
+    isSignedIn
+  );
+
+  setErrorMessage(message);
+  console.log("AFTER VALIDATION");
+};
 
   const toggleSignInForm = () => {
     setIsSignedIn(!isSignedIn);
