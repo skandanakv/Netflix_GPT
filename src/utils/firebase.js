@@ -5,14 +5,14 @@ import { getAnalytics } from "firebase/analytics";
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
-  authDomain: "netflixgpt-f57ce.firebaseapp.com",
-  projectId: "netflixgpt-f57ce",
+  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
   storageBucket: "netflixgpt-f57ce.firebasestorage.app",
   messagingSenderId: "700667035551",
-  appId: "1:700667035551:web:3cda7e5c789655364b87aa",
+  appId: process.env.REACT_APP_FIREBASE_APP_ID,
   measurementId: "G-1L7SH060DX"
 };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+const analytics = getAnalytics(app); 
