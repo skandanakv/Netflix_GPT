@@ -77,13 +77,6 @@ console.log({
   });
 
     }
-
-
-
-  
-
-
-
 };
 
   const toggleSignInForm = () => {
