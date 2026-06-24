@@ -2,6 +2,10 @@ import React from 'react'
 import Header from './Header'
 import { useState, useRef} from 'react'
 import {checkValidData} from '../utils/Validation'
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import {auth} from '../utils/firebase'
+
+
 
 const Login = () => {
   const emailRef = useRef(null);
@@ -27,10 +31,10 @@ console.log({
   isSignedIn
 });
 
-console.log("isSignedIn =", isSignedIn);
-console.log("nameRef =", nameRef.current);
-console.log("emailRef =", emailRef.current);
-console.log("passwordRef =", passwordRef.current);
+// console.log("isSignedIn =", isSignedIn);
+// console.log("nameRef =", nameRef.current);
+// console.log("emailRef =", emailRef.current);
+// console.log("passwordRef =", passwordRef.current);
 
   const message = checkValidData(
     name,
@@ -41,6 +45,45 @@ console.log("passwordRef =", passwordRef.current);
 
   setErrorMessage(message);
   console.log("AFTER VALIDATION");
+
+  if(message) return;
+
+  if(!isSignedIn){
+      //signup ,logic
+
+      createUserWithEmailAndPassword(auth, email, password)
+  .then((userCredential) => {
+    const user = userCredential.user;
+    console.log(user)
+  })
+  .catch((error) => {
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    setErrorMessage(errorCode + "-" + errorMessage);
+  });
+
+
+    } else{
+      //signin logic
+      signInWithEmailAndPassword(auth, email, password)
+  .then((userCredential) => {
+    const user = userCredential.user;
+    console.log(user);
+  })
+  .catch((error) => {
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    setErrorMessage(errorCode + "-" + errorMessage);
+  });
+
+    }
+
+
+
+  
+
+
+
 };
 
   const toggleSignInForm = () => {
