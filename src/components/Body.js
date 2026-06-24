@@ -11,6 +11,7 @@ const Body = () => {
 
     const dispatch=useDispatch(); //always mention hooks at the top, just aft comp declaration
 
+
     const appRouter = createBrowserRouter([
         { 
             path: "/", 
@@ -31,8 +32,10 @@ useEffect(() => {
         name: displayName,
         email: email
     }));
+
   } else {
     dispatch(removeUser());
+
   }
 }); 
 },[])
