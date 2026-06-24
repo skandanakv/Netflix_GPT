@@ -10,4 +10,6 @@
 - useRef hook
 - Firebase setup
 - deploying app to prod
-- creating a user now - authentication
+- creating a user now - auth (signin,signup)
+- implemented signin user api
+- ceated redux store: userSlice
