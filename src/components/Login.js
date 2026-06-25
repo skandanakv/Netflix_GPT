@@ -2,7 +2,7 @@ import React from 'react'
 import Header from './Header'
 import { useState, useRef} from 'react'
 import {checkValidData} from '../utils/Validation'
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from "firebase/auth";
 import {auth} from '../utils/firebase'
 import{useNavigate} from 'react-router-dom'
 
@@ -59,7 +59,15 @@ console.log({
   .then((userCredential) => {
     const user = userCredential.user;
     console.log(user)
-    navigate("/browse");
+    updateProfile(user, {
+  displayName: name
+}).then(() => {
+  // Profile updated!
+  navigate("/browse");
+}).catch((error) => {
+  setErrorMessage(error.code + "-" + error.message);
+});
+    
   })
   .catch((error) => {
     const errorCode = error.code;
