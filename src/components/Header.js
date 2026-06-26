@@ -53,6 +53,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { addUser, removeUser } from "../utils/userSlice";
+import {LOGO, USER_ICON} from "../utils/constants"
 
 
 const Header = () => {
@@ -98,7 +99,7 @@ return () => unsubscribe();
   return (
     <div className="absolute top-0 left-0 z-20 w-full flex justify-between items-center px-8 py-4 bg-gradient-to-b from-black via-black/70 to-transparent">
       <img
-        src="https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg"
+        src={LOGO}
         alt="Netflix Logo"
         className="w-44"
       />
@@ -107,7 +108,7 @@ return () => unsubscribe();
         <div className="flex items-center gap-4">
           <img
             alt="user icon"
-            src="https://loodibee.com/wp-content/uploads/Netflix-avatar-2.png"
+            src={USER_ICON}
             className="w-10 h-10 rounded-md"
           />
 
