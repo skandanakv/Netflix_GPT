@@ -72,7 +72,7 @@ const Header = () => {
 
 
 useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
   if (user) {
     const {uid, displayName, email }= user.uid;
     dispatch(addUser({
@@ -86,6 +86,11 @@ navigate("/browse")
 navigate("/")
   }
 }); 
+
+//unsubscribe when the component is unmounted
+return () => unsubscribe();
+
+
 },[])
 
   const isBrowsePage = location.pathname === "/browse";

@@ -13,3 +13,6 @@
 - creating a user now - auth (signin,signup)
 - implemented signin user api
 - ceated redux store: userSlice
+- BugFix: if user is not loggedIn then redirect "/browse" to login page
+- similarly, if already loggedin user..dont redirect to "/" from "/browse"
+- unsubscribed onAuthStateChanged() cb
