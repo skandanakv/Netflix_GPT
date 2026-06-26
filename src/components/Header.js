@@ -49,20 +49,44 @@ import { useLocation } from "react-router-dom";
 import { signOut } from "firebase/auth";
 import { auth } from "../utils/firebase";
 import{useNavigate} from 'react-router-dom'
+import { onAuthStateChanged } from "firebase/auth";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { addUser, removeUser } from "../utils/userSlice";
 
 
 const Header = () => {
+  const dispatch=useDispatch(); //always mention hooks at the top, just aft comp declaration
   const navigate = useNavigate();
+    const user = useSelector((store) => store.user);
+  const location = useLocation();
+
   const handleSignOut = () => {
     signOut(auth).then(() => {
-      navigate("/");
+      
 }).catch((error) => {
   console.error("Sign out failed:", error);
 });
     
   }
-  const user = useSelector((store) => store.user);
-  const location = useLocation();
+
+
+useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+  if (user) {
+    const {uid, displayName, email }= user.uid;
+    dispatch(addUser({
+   uid: uid,
+        name: displayName,
+        email: email
+    }));
+navigate("/browse")
+  } else {
+    dispatch(removeUser());
+navigate("/")
+  }
+}); 
+},[])
 
   const isBrowsePage = location.pathname === "/browse";
 

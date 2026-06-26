@@ -10,7 +10,7 @@ import{useNavigate} from 'react-router-dom'
 
 const Login = () => {
 
-const navigate = useNavigate();
+
 
   const [isSignedIn, setIsSignedIn]=useState(true);
   const [errorMessage, setErrorMessage] = useState(null);
@@ -62,8 +62,6 @@ console.log({
     updateProfile(user, {
   displayName: name
 }).then(() => {
-  // Profile updated!
-  navigate("/browse");
 }).catch((error) => {
   setErrorMessage(error.code + "-" + error.message);
 });
@@ -82,7 +80,6 @@ console.log({
   .then((userCredential) => {
     const user = userCredential.user;
     console.log(user);
-    navigate("/browse");
   })
   .catch((error) => {
     const errorCode = error.code;
